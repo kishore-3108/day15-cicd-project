@@ -15,8 +15,8 @@ spec:
         app: day15-app
     spec:
       containers:
-            - name: day15-container
+      -  name: day15-container
         image: day15-node-app:latest
         ports:
-                - containerPort: 3000
+        - containerPort: 3000
         imagePullPolicy: IfNotPresent
