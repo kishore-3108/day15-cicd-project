@@ -9,22 +9,12 @@ pipeline {
     }
 
     stages {
-        stage('Checkout Code') {
-            steps {
-                echo "Building ${IMAGE_NAME}:${IMAGE_TAG}"
-            }
-        }
-
-        stage('Build Docker Image in Minikube') {
+        stage('Build Docker Image') {
             steps {
                 bat '''
-                @echo off
-                echo "Setting Minikube Docker Env..."
-                for /f "delims=" %%i in ('minikube -p minikube docker-env --shell cmd') do call %%i
                 echo "Building Docker Image..."
                 docker build -t %IMAGE_NAME%:%IMAGE_TAG% .
                 docker tag %IMAGE_NAME%:%IMAGE_TAG% %IMAGE_NAME%:latest
-                docker images | findstr %IMAGE_NAME%
                 '''
             }
         }
@@ -42,18 +32,12 @@ pipeline {
 
     post {
         success {
-            echo 'Pipeline SUCCESS - App Deployed to K8s!'
-            bat '''
-            echo "--- PODS ---"
-            kubectl get pods
-            echo "--- SERVICE ---"
-            kubectl get svc day15-service
-            echo "--- APP URL ---"
-            minikube service day15-service --url
-            '''
+            echo 'Pipeline SUCCESS!'
+            bat 'kubectl get pods'
+            bat 'kubectl get svc day15-service'
         }
         failure {
-            echo 'Pipeline FAILED! Check logs above'
+            echo 'Pipeline FAILED!'
             bat 'kubectl describe pods -l app=day15-app'
         }
     }
