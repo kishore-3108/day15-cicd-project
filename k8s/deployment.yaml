@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: day15-deployment
+  labels:
+    app: day15-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: day15-app
+  template:
+    metadata:
+      labels:
+        app: day15-app
+    spec:
+      containers:
+            - name: day15-container
+        image: day15-node-app:latest
+        ports:
+                - containerPort: 3000
+        imagePullPolicy: IfNotPresent
