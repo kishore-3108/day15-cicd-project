@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
-metadata:          # 0 spaces
-  name: day15-deployment    # 2 spaces
-  labels:                   # 2 spaces
-    app: day15-app          # 4 spaces
-spec:              # 0 spaces
-  replicas: 1               # 2 spaces
-  selector:                 # 2 spaces
-    matchLabels:            # 4 spaces
-      app: day15-app        # 6 spaces
-  template:                 # 2 spaces
-    metadata:               # 4 spaces
-      labels:               # 6 spaces
-        app: day15-app      # 8 spaces
-    spec:                   # 4 spaces
-      containers:           # 6 spaces
-      - name: day15-container     # 6 spaces + "- " = 8 total
-        image: day15-node-app:latest  # 8 spaces
-        ports:                        # 8 spaces
-        - containerPort: 3000         # 8 spaces + "- " = 10 total
-        imagePullPolicy: IfNotPresent # 8 spaces
+metadata:
+  name: day15-deployment
+  labels:
+    app: day15-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: day15-app
+  template:
+    metadata:
+      labels:
+        app: day15-app
+    spec:
+      containers:
+      - name: day15-container
+        image: day15-node-app:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 3000
